@@ -108,9 +108,24 @@ export default function HomePage() {
                 </svg>
               </div>
               <div class="botao-entrar">
-                <a href="/Login">
-                  <button>Entrar</button>
-                </a>
+                {Cookies.get("token") ? (
+                  <button
+                    onClick={() => {
+                      Cookies.remove("token");
+                      window.location.reload();
+                    }}
+                  >
+                    Sair
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      Navegar("/Login");
+                    }}
+                  >
+                    Entrar
+                  </button>
+                )}
               </div>
             </nav>
             <div class="geral-sessoes">

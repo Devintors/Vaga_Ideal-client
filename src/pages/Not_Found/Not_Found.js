@@ -1,6 +1,6 @@
-import "./style.css";
-
 import { useNavigate } from "react-router-dom";
+
+import "./style.css";
 
 export default function Not_Found() {
   const Navegar = useNavigate();

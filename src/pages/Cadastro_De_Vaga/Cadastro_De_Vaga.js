@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 import "./style.css";
 import "./Estilo_Formulario.css";
 
 export default function Cadastro_De_Vaga() {
+  const Navegar = useNavigate();
+
   return (
     <div className="Corpo_Site">
       <div class="geral_style">
@@ -35,9 +40,24 @@ export default function Cadastro_De_Vaga() {
             </svg>
           </div>
           <div class="botao-entrar">
-            <a href="/Login">
-              <button>Entrar</button>
-            </a>
+            {Cookies.get("token") ? (
+              <button
+                onClick={() => {
+                  Cookies.remove("token");
+                  window.location.reload();
+                }}
+              >
+                Sair
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  Navegar("/Login");
+                }}
+              >
+                Entrar
+              </button>
+            )}
           </div>
         </nav>
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 import "./style.css";
 import "./Estilo_Login_Cadastro.css";
@@ -9,10 +10,17 @@ import Logar from "../../components/Logar";
 import Cadastrar_Se from "../../components/Cadastrar_Se";
 
 export default function Login_Cadastro() {
+  const Navegar = useNavigate();
+
   const [Tela_Atual_De_Login_Cadastro, setTela_Atual_De_Login_Cadastro] =
     useState(true);
 
-  const Navegar = useNavigate();
+  useEffect(() => {
+    if (Cookies.get("token")) {
+      alert("Você já está logado");
+      Navegar("/");
+    }
+  }, [Tela_Atual_De_Login_Cadastro]);
 
   return (
     <div className="Corpo_Site">
