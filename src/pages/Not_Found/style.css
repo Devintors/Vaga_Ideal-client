@@ -1,0 +1,29 @@
+.Pagina_Nao_Encontrada {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 50%;
+  font-size: 2rem;
+  color: white;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+}
+
+.Pagina_Nao_Encontrada > button {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 25px;
+  background: #121236;
+  margin: 15px;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.Pagina_Nao_Encontrada > button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
