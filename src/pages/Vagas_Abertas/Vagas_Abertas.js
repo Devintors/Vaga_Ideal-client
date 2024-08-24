@@ -11,9 +11,9 @@ import "./Estilo_Vagas.css";
 export default function Vagas_Abertas() {
   const Navegar = useNavigate();
 
-  const [Vagas_Abertas_Disponiveis, setVagas_Abertas_Disponiveis] = useState([
-    {},
-  ]);
+  const [Vagas_Abertas_Disponiveis, setVagas_Abertas_Disponiveis] = useState(
+    []
+  );
 
   useEffect(() => {
     Axios.post(
