@@ -1,16 +1,41 @@
+import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
+import Axios from "axios";
 import Cookies from "js-cookie";
 
 import "./style.css";
+import "./Estilo_Vagas.css";
 
 export default function Vagas_Abertas() {
   const Navegar = useNavigate();
 
+  const [Vagas_Abertas_Disponiveis, setVagas_Abertas_Disponiveis] = useState([
+    {},
+  ]);
+
+  useEffect(() => {
+    Axios.post(
+      // "https://rvsprice-server.vercel.app/pesquisa-categoria-produto",
+      // "http://localhost:5000/pesquisa-categoria-produto",
+      "https://zvfmwc2c-5000.brs.devtunnels.ms/buscar-vaga-emprego",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((Resposta) => {
+      setVagas_Abertas_Disponiveis(Resposta.data.Encontrados);
+    });
+  }, []);
+
   return (
     <div className="Corpo_Site">
-      <div class="geral_style">
+      <div className="geral_style">
         <nav>
-          <div class="logo">
+          <div className="logo">
             <svg
               version="1.0"
               xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +63,7 @@ export default function Vagas_Abertas() {
               </g>
             </svg>
           </div>
-          <div class="botao-entrar">
+          <div className="botao-entrar">
             {Cookies.get("token") ? (
               <button
                 onClick={() => {
@@ -60,7 +85,91 @@ export default function Vagas_Abertas() {
           </div>
         </nav>
 
-        {/*  */}
+        <div className="Conjunto_De_Vagas_Abertas">
+          {Vagas_Abertas_Disponiveis.map((item) => {
+            console.log(item);
+            return (
+              <div className="geral-pizza" id="Pizzas">
+                <div className="pizza-card">
+                  <div className="centralizar-img">
+                    <div className="pizza-img">
+                      <img src={item.Logo} alt="Imagem da vaga" />
+                    </div>
+                  </div>
+                  <div className="nomes">
+                    <h1>{item.Nome_Loja}</h1>
+                    <div className="remetente">
+                      <span>Remetente:</span> {item.Primeiro_Nome}
+                    </div>
+                  </div>
+                  <div className="itens">
+                    <div className="lado-direito">
+                      <div className="nome-loja">
+                        <span>Vaga:</span>
+                        <br />
+                        {item.Vaga}
+                      </div>
+                      <div className="nome-loja">
+                        <span>Horário:</span>
+                        <br />
+                        {item.Horario_Inicial} - {item.Horario_Final}
+                      </div>
+                      <div className="nome-loja">
+                        <span>Salário:</span>
+                        <br />
+                        R$ {item.Valor_Inicial}
+                      </div>
+                    </div>
+
+                    <div className="lado-esquerdo">
+                      <div className="nome-loja">
+                        <span>Cidade:</span>
+                        <br />
+                        {item.Cidade}-SP
+                      </div>
+                      <div className="nome-loja">
+                        <span>Requisitos:</span>
+                        <br />
+                        {item.Requisito_Principal}
+                      </div>
+                      <div className="nome-loja">
+                        <span>Idade minima:</span>
+                        <br />
+                        {item.Idade_Minima} anos
+                      </div>
+                    </div>
+                  </div>
+                  <div className="botoes">
+                    <button
+                      className="WhatsApp"
+                      onClick={() => {
+                        window.open(
+                          "https://api.whatsapp.com/send/?phone=55" +
+                            item.Celular,
+                          "_blank"
+                        );
+                      }}
+                    >
+                      WhatsApp
+                    </button>
+                    {item.Link_Formulario ? (
+                      <button
+                        className="Curriculo"
+                        onClick={() => {
+                          window.open(item.Link_Formulario, "_blank");
+                        }}
+                      >
+                        currículo
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
         <footer>
           <p>&copy; 2024 Meu TCC. Todos os direitos reservados.</p>

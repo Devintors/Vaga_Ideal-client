@@ -27,6 +27,7 @@ export default function Logar({ Definir_Tela_Atual_De_Login_Cadastro }) {
       ).then((Resposta) => {
         if (Resposta.data.erro) {
           console.log(Resposta.data.erro);
+          alert("Usuario ou senha incorretos");
         } else {
           Cookies.set("token", Resposta.data.token);
           console.log(Resposta.data.token);

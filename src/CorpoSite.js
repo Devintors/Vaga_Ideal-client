@@ -2,6 +2,8 @@ import "./StylePadrao.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Cookies from "js-cookie";
+
 import HomePage from "./pages/Home/HomePage";
 import Login_Cadastro from "./pages/Login_Cadastro/Login_Cadastro";
 import Vagas_Abertas from "./pages/Vagas_Abertas/Vagas_Abertas";
@@ -14,7 +16,14 @@ export default function CorpoSite() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Vagas-Abertas" element={<Vagas_Abertas />} />
-        <Route path="/Abrir-Vaga" element={<Cadastro_De_Vaga />} />
+        <Route
+          path="/Abrir-Vaga"
+          element={
+            <>
+              <Cadastro_De_Vaga />
+            </>
+          }
+        />
         <Route path="/Login" element={<Login_Cadastro />} />
         <Route path="*" element={<Not_Found />} />
       </Routes>

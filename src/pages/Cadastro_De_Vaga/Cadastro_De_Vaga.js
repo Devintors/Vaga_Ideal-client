@@ -1,5 +1,9 @@
+import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import Cookies from "js-cookie";
+import Axios from "axios";
 
 import "./style.css";
 import "./Estilo_Formulario.css";
@@ -7,11 +11,93 @@ import "./Estilo_Formulario.css";
 export default function Cadastro_De_Vaga() {
   const Navegar = useNavigate();
 
+  const [Cadastro_De_Vaga_Primeiro_Nome, setCadastro_De_Vaga_Primeiro_Nome] =
+    useState("");
+  const [Cadastro_De_Vaga_Cidade, setCadastro_De_Vaga_Cidade] = useState("");
+  const [Cadastro_De_Vaga_Email, setCadastro_De_Vaga_Email] = useState("");
+  const [Cadastro_De_Vaga_Celular, setCadastro_De_Vaga_Celular] = useState("");
+  const [Cadastro_De_Vaga_Nome_Da_Loja, setCadastro_De_Vaga_Nome_Da_Loja] =
+    useState("");
+  const [
+    Cadastro_De_Vaga_Requisito_Principal,
+    setCadastro_De_Vaga_Requisito_Principal,
+  ] = useState("");
+  const [Cadastro_De_Vaga_Funcao, setCadastro_De_Vaga_Funcao] = useState("");
+  const [
+    Cadastro_De_Vaga_Horario_Entrada,
+    setCadastro_De_Vaga_Horario_Entrada,
+  ] = useState("");
+  const [Cadastro_De_Vaga_Horario_Saida, setCadastro_De_Vaga_Horario_Saida] =
+    useState("");
+  const [Cadastro_De_Vaga_Valor_Inicial, setCadastro_De_Vaga_Valor_Inicial] =
+    useState("");
+  const [Cadastro_De_Vaga_Logo, setCadastro_De_Vaga_Logo] = useState("");
+  const [
+    Cadastro_De_Vaga_Link_Formulario,
+    setCadastro_De_Vaga_Link_Formulario,
+  ] = useState("");
+  const [Cadastro_De_Vaga_Idade_Inicial, setCadastro_De_Vaga_Idade_Inicial] =
+    useState("");
+
+  const Enviar_Dados_De_Cadastro_De_Login_Para_Servidor = () => {
+    if (
+      Cadastro_De_Vaga_Primeiro_Nome !== "" &&
+      Cadastro_De_Vaga_Email !== "" &&
+      Cadastro_De_Vaga_Celular !== "" &&
+      Cadastro_De_Vaga_Nome_Da_Loja !== "" &&
+      Cadastro_De_Vaga_Requisito_Principal !== "" &&
+      Cadastro_De_Vaga_Funcao !== "" &&
+      Cadastro_De_Vaga_Horario_Entrada !== "" &&
+      Cadastro_De_Vaga_Horario_Saida !== "" &&
+      Cadastro_De_Vaga_Valor_Inicial !== "" &&
+      Cadastro_De_Vaga_Logo !== "" &&
+      Cadastro_De_Vaga_Idade_Inicial !== "" &&
+      Cadastro_De_Vaga_Cidade !== ""
+    ) {
+      var Dados_Para_Envio = {
+        Primeiro_Nome: Cadastro_De_Vaga_Primeiro_Nome,
+        Cidade: Cadastro_De_Vaga_Cidade,
+        Email: Cadastro_De_Vaga_Email,
+        Celular: Cadastro_De_Vaga_Celular,
+        Nome_Da_Loja: Cadastro_De_Vaga_Nome_Da_Loja,
+        Requisito_Principal: Cadastro_De_Vaga_Requisito_Principal,
+        Vaga: Cadastro_De_Vaga_Funcao,
+        Horario_Inicial: Cadastro_De_Vaga_Horario_Entrada,
+        Horario_Final: Cadastro_De_Vaga_Horario_Saida,
+        Valor_Inicial: Cadastro_De_Vaga_Valor_Inicial,
+        Logo: Cadastro_De_Vaga_Logo,
+        Link_Formulario: Cadastro_De_Vaga_Link_Formulario,
+        Idade_Minima: Cadastro_De_Vaga_Idade_Inicial,
+      };
+
+      Axios.post(
+        // "https://rvsprice-server.vercel.app/pesquisa-categoria-produto",
+        // "http://localhost:5000/pesquisa-categoria-produto",
+        "https://zvfmwc2c-5000.brs.devtunnels.ms/cadastrar-vaga-emprego",
+        { Dados_Para_Envio },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((Resposta) => {
+        alert(Resposta.data.Resultado);
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      alert("Perfil não logado");
+      Navegar("/Login");
+    }
+  }, []);
+
   return (
     <div className="Corpo_Site">
-      <div class="geral_style">
+      <div className="geral_style">
         <nav>
-          <div class="logo">
+          <div className="logo">
             <svg
               version="1.0"
               xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +125,7 @@ export default function Cadastro_De_Vaga() {
               </g>
             </svg>
           </div>
-          <div class="botao-entrar">
+          <div className="botao-entrar">
             {Cookies.get("token") ? (
               <button
                 onClick={() => {
@@ -61,7 +147,284 @@ export default function Cadastro_De_Vaga() {
           </div>
         </nav>
 
-        {/*  */}
+        <div className="container">
+          <div className="form-image">
+            <img src="/inicio-primeira-tela/img/imagem-inicio.png" alt="" />
+          </div>
+          <div className="form">
+            <form action="#">
+              <div className="form-header">
+                <div className="title">
+                  <h1>Cadastrar </h1>
+                </div>
+                <div className="login-button">
+                  <button
+                    onClick={() => {
+                      Navegar("/");
+                    }}
+                  >
+                    <span>Home</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <div className="input-box">
+                  <label htmlFor="firstname">Primeiro Nome:</label>
+                  <input
+                    id="firstname"
+                    type="text"
+                    name="firstname"
+                    value={Cadastro_De_Vaga_Primeiro_Nome}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Primeiro_Nome(e.target.value);
+                    }}
+                    placeholder="Digite seu primeiro nome"
+                    required
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="lastname">Cidade:</label>
+                  <input
+                    id="lastname"
+                    type="text"
+                    name="lastname"
+                    value={Cadastro_De_Vaga_Cidade}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Cidade(e.target.value);
+                    }}
+                    placeholder="Digite sua cidade"
+                    required
+                  />
+                </div>
+                <div className="input-box">
+                  <label htmlFor="email">E-mail:</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={Cadastro_De_Vaga_Email}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Email(e.target.value);
+                    }}
+                    placeholder="Digite seu e-mail"
+                    required
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="number">Celular:</label>
+                  <input
+                    id="number"
+                    type="number"
+                    name="number"
+                    value={Cadastro_De_Vaga_Celular}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Celular(e.target.value);
+                    }}
+                    placeholder="(xx) xxxx-xxxx"
+                    required
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="Nome_Da_Loja">Nome da loja:</label>
+                  <input
+                    id="Nome_Da_Loja"
+                    type="Nome_Da_Loja"
+                    name="Nome_Da_Loja"
+                    value={Cadastro_De_Vaga_Nome_Da_Loja}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Nome_Da_Loja(e.target.value);
+                    }}
+                    placeholder="Digite o nome da loja"
+                    required
+                  />
+                </div>
+                <div className="input-box">
+                  <label htmlFor="Requisito_Principal">
+                    Requisito Principal:
+                  </label>
+                  <input
+                    id="Requisito_Principal"
+                    type="Requisito_Principal"
+                    name="Requisito_Principal"
+                    value={Cadastro_De_Vaga_Requisito_Principal}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Requisito_Principal(e.target.value);
+                    }}
+                    placeholder="Digite o principal requisito"
+                    required
+                  />
+                </div>
+                <div className="input-box">
+                  <label htmlFor="Nome_Da_Vaga">Vaga:</label>
+                  <input
+                    id="Nome_Da_Vaga"
+                    type="Nome_Da_Vaga"
+                    name="Nome_Da_Vaga"
+                    value={Cadastro_De_Vaga_Funcao}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Funcao(e.target.value);
+                    }}
+                    placeholder="Digite a função da vaga"
+                    required
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="Horario_De_Trabalho">Horário:</label>
+                  <div className="horario">
+                    <input
+                      id="Horario_De_Trabalho"
+                      type="time"
+                      name="Horario_De_Trabalho"
+                      value={Cadastro_De_Vaga_Horario_Entrada}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Horario_Entrada(e.target.value);
+                      }}
+                      placeholder="Digite o nome"
+                      required
+                    />
+                    <input
+                      id="Horario_De_Trabalho"
+                      type="time"
+                      name="Horario_De_Trabalho"
+                      value={Cadastro_De_Vaga_Horario_Saida}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Horario_Saida(e.target.value);
+                      }}
+                      placeholder="Digite o nome"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="Valor_Inicial">Valor inicial:</label>
+                  <input
+                    id="Valor_Inicial"
+                    type="Valor_Inicial"
+                    name="Valor_Inicial"
+                    value={Cadastro_De_Vaga_Valor_Inicial}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Valor_Inicial(e.target.value);
+                    }}
+                    placeholder="Digite o valor"
+                    required
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="Logo">Logo:</label>
+                  <input
+                    id="Logo"
+                    type="file"
+                    onChange={(e) => {
+                      const Arquivo_Recebido = e.target.files[0];
+                      const Leitor_De_Arquivo = new FileReader();
+
+                      Leitor_De_Arquivo.onload = () => {
+                        const Imagem_Em_Texto = Leitor_De_Arquivo.result;
+
+                        setCadastro_De_Vaga_Logo(Imagem_Em_Texto);
+                      };
+
+                      Leitor_De_Arquivo.readAsDataURL(Arquivo_Recebido);
+                    }}
+                    required
+                    className="file-input"
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label htmlFor="Link_Formulario">Link do formulario:</label>
+                  <input
+                    id="Link_Formulario"
+                    type="Link_Formulario"
+                    name="Link_Formulario"
+                    value={Cadastro_De_Vaga_Link_Formulario}
+                    onChange={(e) => {
+                      setCadastro_De_Vaga_Link_Formulario(e.target.value);
+                    }}
+                    placeholder="Link do formulario"
+                  />
+                </div>
+              </div>
+
+              <div className="gender-inputs">
+                <div className="gender-title">
+                  <h6>Idade minima:</h6>
+                </div>
+
+                <div className="gender-group">
+                  <div className="gender-input">
+                    <input
+                      id="none"
+                      type="radio"
+                      name="gender"
+                      value={14}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Idade_Inicial(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="none">14 anos</label>
+                  </div>
+                  <div className="gender-input">
+                    <input
+                      id="female"
+                      type="radio"
+                      name="gender"
+                      value={16}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Idade_Inicial(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="female">16 anos</label>
+                  </div>
+
+                  <div className="gender-input">
+                    <input
+                      id="male"
+                      type="radio"
+                      name="gender"
+                      value={18}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Idade_Inicial(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="male">18 anos</label>
+                  </div>
+
+                  <div className="gender-input">
+                    <input
+                      id="others"
+                      type="radio"
+                      name="gender"
+                      value={24}
+                      onChange={(e) => {
+                        setCadastro_De_Vaga_Idade_Inicial(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="others">24 anos</label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="continue-button">
+                <button
+                  type="button"
+                  onClick={() => {
+                    Enviar_Dados_De_Cadastro_De_Login_Para_Servidor();
+                  }}
+                >
+                  Continuar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <footer>
           <p>&copy; 2024 Meu TCC. Todos os direitos reservados.</p>
