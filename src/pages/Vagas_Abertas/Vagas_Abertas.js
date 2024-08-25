@@ -87,7 +87,6 @@ export default function Vagas_Abertas() {
 
         <div className="Conjunto_De_Vagas_Abertas">
           {Vagas_Abertas_Disponiveis.map((item) => {
-            console.log(item);
             return (
               <div className="geral-pizza" id="Pizzas">
                 <div className="pizza-card">

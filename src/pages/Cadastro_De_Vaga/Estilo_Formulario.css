@@ -88,8 +88,30 @@ body {
   height: 0.3rem;
   background-color: #12123b;
   margin: 0 auto;
-  position: absolute;
+  position: relative;
+  left: -30px;
   border-radius: 10px;
+}
+
+.continue-button > button {
+  color: white;
+}
+
+.login-button > button {
+  color: white;
+}
+
+.Aniamcao_De_Girar_Infinita {
+  animation: Girar 1s linear infinite;
+}
+
+@keyframes Girar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .input-group {
@@ -236,6 +258,8 @@ body {
     padding-right: 2px;
     overflow-y: scroll;
     flex-wrap: nowrap;
+    overflow: hidden;
+    display: contents;
   }
   .gender-inputs {
     margin-top: 1rem; /* Ajustar o espaçamento */

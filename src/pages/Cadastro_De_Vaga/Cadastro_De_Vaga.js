@@ -11,6 +11,8 @@ import "./Estilo_Formulario.css";
 export default function Cadastro_De_Vaga() {
   const Navegar = useNavigate();
 
+  const [Visibilidade_Do_Botao, setVisibilidade_Do_Botao] = useState(true);
+
   const [Cadastro_De_Vaga_Primeiro_Nome, setCadastro_De_Vaga_Primeiro_Nome] =
     useState("");
   const [Cadastro_De_Vaga_Cidade, setCadastro_De_Vaga_Cidade] = useState("");
@@ -69,7 +71,7 @@ export default function Cadastro_De_Vaga() {
         Link_Formulario: Cadastro_De_Vaga_Link_Formulario,
         Idade_Minima: Cadastro_De_Vaga_Idade_Inicial,
       };
-
+      setVisibilidade_Do_Botao(false);
       Axios.post(
         // "https://rvsprice-server.vercel.app/pesquisa-categoria-produto",
         // "http://localhost:5000/pesquisa-categoria-produto",
@@ -81,8 +83,24 @@ export default function Cadastro_De_Vaga() {
           },
         }
       ).then((Resposta) => {
+        setCadastro_De_Vaga_Primeiro_Nome("");
+        setCadastro_De_Vaga_Cidade("");
+        setCadastro_De_Vaga_Email("");
+        setCadastro_De_Vaga_Celular("");
+        setCadastro_De_Vaga_Nome_Da_Loja("");
+        setCadastro_De_Vaga_Requisito_Principal("");
+        setCadastro_De_Vaga_Funcao("");
+        setCadastro_De_Vaga_Horario_Entrada("");
+        setCadastro_De_Vaga_Horario_Saida("");
+        setCadastro_De_Vaga_Valor_Inicial("");
+        setCadastro_De_Vaga_Logo("");
+        setCadastro_De_Vaga_Link_Formulario("");
+        setCadastro_De_Vaga_Idade_Inicial("");
+        setVisibilidade_Do_Botao(true);
         alert(Resposta.data.Resultado);
       });
+    } else {
+      alert("Existem campos não preenchidos");
     }
   };
 
@@ -414,12 +432,26 @@ export default function Cadastro_De_Vaga() {
 
               <div className="continue-button">
                 <button
+                  style={
+                    Visibilidade_Do_Botao
+                      ? {}
+                      : {
+                          backgroundColor: "gray",
+                          cursor: "progress",
+                        }
+                  }
                   type="button"
                   onClick={() => {
-                    Enviar_Dados_De_Cadastro_De_Login_Para_Servidor();
+                    if (Visibilidade_Do_Botao) {
+                      Enviar_Dados_De_Cadastro_De_Login_Para_Servidor();
+                    }
                   }}
                 >
-                  Continuar
+                  {!Visibilidade_Do_Botao ? (
+                    <i className="Aniamcao_De_Girar_Infinita fa-solid fa-spinner"></i>
+                  ) : (
+                    "Continuar"
+                  )}
                 </button>
               </div>
             </form>
