@@ -19,7 +19,7 @@ export default function Vagas_Abertas() {
     Axios.post(
       // "https://rvsprice-server.vercel.app/pesquisa-categoria-produto",
       // "http://localhost:5000/pesquisa-categoria-produto",
-      "https://zvfmwc2c-5000.brs.devtunnels.ms/buscar-vaga-emprego",
+      "https://zvfmwc2c-5001.brs.devtunnels.ms/buscar-vaga-emprego",
       {},
       {
         headers: {

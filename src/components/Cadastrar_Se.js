@@ -17,7 +17,7 @@ export default function Cadastrar_Se({ Definir_Tela_Atual_De_Login_Cadastro }) {
       Axios.post(
         // "https://rvsprice-server.vercel.app/pesquisa-categoria-produto",
         // "http://localhost:5000/pesquisa-categoria-produto",
-        "https://zvfmwc2c-5000.brs.devtunnels.ms/cadastrar-usuario",
+        "https://zvfmwc2c-5001.brs.devtunnels.ms/cadastrar-usuario",
         { Usuario: Input_Nome_Do_Usuario, Senha: Input_Senha_Do_Usuario },
         {
           headers: {
